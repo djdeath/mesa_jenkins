@@ -41,6 +41,7 @@ if __name__=="__main__":
 from . import ProjectInvoke, DependencyGraph
 from . import ProjectMap
 from . import RepoSet
+from . import run_batch_command
 
 triggered_builds = []
 
@@ -131,6 +132,10 @@ class Jenkins:
                     raise
                 time.sleep(5)
 
+    def write_failure_log(self,log_dir = ProjectMap().output_dir()):
+        run_batch_command(["wget", "-O", log_dir + "/failure.log",
+                                            "${BUILD_URL}consoleText"])
+
     def build(self, project_invoke, branch="", extra_arg=None):
         status = project_invoke.get_info("status", block=False)
         if status == "building":
@@ -163,7 +168,7 @@ class Jenkins:
         if status == "failure":
             # raise BuildFailure(project_invoke, self._revision)
             # for now, let's attempt to rebuild failure projects
-            pass
+            write_failure_log()
 
         project_invoke.set_info("status", "building")
         project_invoke.set_info("url", "")
