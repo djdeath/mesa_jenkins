@@ -605,6 +605,10 @@
       <mesa branch="internal/jekstrand_jenkins"/>
     </branch>
 
+    <branch name="llandwerlin_jekstrand" project="vulkancts-full">
+      <mesa branch="internal/llandwerlin_jenkins"/>
+    </branch>
+
     <branch name="jljusten_vulkan" project="vulkancts-full">
       <mesa branch="jljusten/vulkan"/>
     </branch>
